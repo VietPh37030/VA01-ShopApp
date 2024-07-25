@@ -15,12 +15,14 @@ import Icons from "@expo/vector-icons/MaterialIcons";
 import MasonryList from "reanimated-masonry-list";
 import { BlurView } from "expo-blur";
 import BottomSheet, { BottomSheetModal } from "@gorhom/bottom-sheet";
-import CustomBackdrop from "../../components/CustomBackDrop";
+
 import Filter from "../../components/Filter";
+import CustomBackdrop from "../../components/CustomBackdrop";
+import { TabsStackScreenProps } from "../navigators/TabsNavigator";
 
 const CATEGORIES = ["Clothing", "Shoes", "Accessory", "Trousers", "Hat"];
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}:TabsStackScreenProps<"Home">) => {
   const [categoryIndex, setCategoryIndex] = useState(0);
   const { colors } = useTheme();
   const bottomSheetModalRef = useRef(null);
@@ -125,10 +127,22 @@ const HomeScreen = () => {
           </View>
           <View style={{ flexDirection: "row", height: 200 }}>
             {/**Card  */}
-            <Card />
+            <Card onPress={()=>{
+              navigation.navigate("deltail",{
+                id:'123'
+              })
+            }}/>
             <View style={{ flex: 1, gap: 12, marginLeft: 10 }}>
-              <Card />
-              <Card />
+            <Card onPress={()=>{
+              navigation.navigate("deltail",{
+                id:'13'
+              })
+            }}/>
+             <Card onPress={()=>{
+              navigation.navigate("deltail",{
+                id:'12'
+              })
+            }}/>
             </View>
           </View>
         </View>
@@ -280,10 +294,14 @@ const HomeScreen = () => {
       </SafeAreaView>
       {/**Filter section */}
       <BottomSheetModal
-        snapPoints={["75%"]}
+        snapPoints={["85%"]}
         index={0}
         ref={bottomSheetModalRef}
-        backdropComponent={(props) => <CustomBackdrop {...props}/>}
+        backdropComponent={(props) => <CustomBackdrop {...props}/>
+      }
+      backgroundStyle={{
+        borderRadius:24
+      }}
       >
         <Filter/>
       </BottomSheetModal>
@@ -318,9 +336,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const Card = () => {
+const Card = ({onPress} :{onPress:(()=>void)}) => {
   return (
-    <View
+    <TouchableOpacity
+      onPress={onPress}
       style={{
         flex: 1,
         position: "relative",
@@ -356,7 +375,7 @@ const Card = () => {
           $100
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
