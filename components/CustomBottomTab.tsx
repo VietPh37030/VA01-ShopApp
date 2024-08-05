@@ -42,7 +42,7 @@ const CustomBottomTab = (props: BottomTabBarProps) => {
             >
               <Icons
                 name={
-                  route.name === "Home"
+                     route.name === "Home"
                     ? "home"
                     : route.name === "Cart"
                     ? "shopping-cart"
